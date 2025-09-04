@@ -1,117 +1,192 @@
 import React, { useState } from 'react'
-import {  Hash, Sparkles } from 'lucide-react'
-import { Image } from 'lucide-react'
+import { Hash, Sparkles, Image, Download, Share2, Zap, Palette, Camera, Wand2 } from 'lucide-react'
 import axios from 'axios'
 import { useAuth } from '@clerk/clerk-react';
 import toast from 'react-hot-toast';
 
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
-
 const GenerateImages = () => {
-
   const imageStyle = [
-   'Realistic','Ghibli Style','Anime Style', 'Cartoon Style', 'Fantasy style', 'Realistic style', '3d Style', 'Potrait style'
-  ]
+    'Realistic', 'Ghibli Style', 'Anime Style', 'Cartoon Style', 
+    'Fantasy Style', '3D Style', 'Portrait Style', 'Cyberpunk'
+  ];
 
-const [selectedStyle, setSelectedStyle] = useState('Realistic')
-const [input, setInput] =useState('')
-const [publish, setPublish] = useState(false)
+  const [selectedStyle, setSelectedStyle] = useState('Realistic');
+  const [input, setInput] = useState('');
+  const [publish, setPublish] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [content, setContent] = useState('');
+  const { getToken } = useAuth();
 
-
-const [loading, setLoading] = useState(false)
-const [content, setContent]= useState('')
-const {getToken} = useAuth()
-
-const onSubmitHandler = async (e)=>{
-  e.preventDefault();
-  try {
-      setLoading(true)
-
-      const prompt = `Generate an image of ${input} in the style ${selectedStyle}` 
-      const {data} =await axios.post('/api/ai/generate-image', {prompt, publish}, {headers: {Authorization: `Bearer ${await getToken()}`}})
-      if(data.success) {
-          setContent(data.content)
-         } else {
-          toast.error(data.message)
-         }
-
-  }catch(error) {
-     toast.error(error.message)
-
-  }
-  setLoading(false)
-}
-
-
-
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const prompt = `Generate an image of ${input} in the style ${selectedStyle}`;
+      const { data } = await axios.post('/api/ai/generate-image', { prompt, publish }, {
+        headers: { Authorization: `Bearer ${await getToken()}` }
+      });
+      
+      if (data.success) {
+        setContent(data.content);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+    setLoading(false);
+  };
 
   return (
-     <div className='h-full overflow-y-scroll p-6 flex items-start flex-wrap gap-4 text-slate-700 bg-indigo-200'>
-           {/*For left column*/}
-           <form onSubmit={onSubmitHandler} className='w-full max-w-lg p-4 bg-white rounded-lg border border-gray-200'>
-            <div className='flex items-center'>
-              <Sparkles className='w-6 txt-[#00AD25]' />
-              <h1 className='text-xl font-semibold'>AI Image Generator</h1>
+    <div className='min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-6'>
+      <div className='max-w-7xl mx-auto'>
+        {/* Header */}
+        <div className='text-center mb-12'>
+          <h1 className='text-5xl font-bold text-white mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent'>
+            AI Image Generator
+          </h1>
+          <p className='text-xl text-gray-300'>Transform your imagination into stunning visuals</p>
+        </div>
+
+        <div className='flex flex-col lg:flex-row gap-8'>
+          {/* Left Panel - Input Form */}
+          <div className='flex-1'>
+            <div className='bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20 shadow-2xl'>
+              <div className='flex items-center mb-8'>
+                <div className='p-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl mr-4'>
+                  <Wand2 className='w-6 h-6 text-white' />
+                </div>
+                <h2 className='text-2xl font-bold text-white'>Create Magic</h2>
+              </div>
+
+              <div className='mb-8'>
+                <label className='block text-white font-semibold mb-4 text-lg'>
+                  <Palette className='inline w-5 h-5 mr-2' />
+                  Describe your vision
+                </label>
+                <textarea
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  rows={4}
+                  placeholder='A majestic dragon soaring through a starlit sky...'
+                  className='w-full p-6 bg-white/20 backdrop-blur-sm border border-white/30 rounded-2xl text-white placeholder-gray-300 focus:outline-none focus:ring-4 focus:ring-purple-500/50 focus:border-purple-400 transition-all duration-300 resize-none text-lg'
+                  required
+                />
+              </div>
+
+              <div className='mb-8'>
+                <label className='block text-white font-semibold mb-4 text-lg'>
+                  <Camera className='inline w-5 h-5 mr-2' />
+                  Art Style
+                </label>
+                <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3'>
+                  {imageStyle.map((style) => (
+                    <button
+                      key={style}
+                      type="button"
+                      onClick={() => setSelectedStyle(style)}
+                      className={`p-4 rounded-2xl border-2 transition-all duration-300 transform hover:scale-105 ${
+                        selectedStyle === style
+                          ? 'bg-gradient-to-r from-purple-500 to-pink-500 border-purple-400 text-white shadow-lg shadow-purple-500/30'
+                          : 'bg-white/10 border-white/30 text-gray-300 hover:bg-white/20 hover:border-white/50'
+                      }`}
+                    >
+                      <span className='font-medium text-sm'>{style}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className='mb-8 flex items-center'>
+                <div className='relative'>
+                  <input
+                    type="checkbox"
+                    checked={publish}
+                    onChange={(e) => setPublish(e.target.checked)}
+                    className='sr-only'
+                    id="publish-toggle"
+                  />
+                  <label
+                    htmlFor="publish-toggle"
+                    className={`flex items-center w-16 h-8 rounded-full cursor-pointer transition-all duration-300 ${
+                      publish ? 'bg-gradient-to-r from-purple-500 to-pink-500' : 'bg-white/20'
+                    }`}
+                  >
+                    <span
+                      className={`w-6 h-6 bg-white rounded-full shadow-lg transform transition-transform duration-300 ${
+                        publish ? 'translate-x-9' : 'translate-x-1'
+                      }`}
+                    />
+                  </label>
+                </div>
+                <span className='ml-4 text-white font-medium'>Make this image public</span>
+              </div>
+
+              <button
+                disabled={loading}
+                onClick={onSubmitHandler}
+                className='w-full py-6 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold rounded-2xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-purple-500/30 text-lg'
+              >
+                {loading ? (
+                  <div className='flex items-center justify-center'>
+                    <div className='w-6 h-6 border-3 border-white border-t-transparent rounded-full animate-spin mr-3' />
+                    Creating Magic...
+                  </div>
+                ) : (
+                  <div className='flex items-center justify-center'>
+                    <Zap className='w-6 h-6 mr-3' />
+                    Generate Image
+                  </div>
+                )}
+              </button>
             </div>
-            <p className='mt-6 text-sm font-medium'>Describe your Image</p>
-    
-            <textarea onChange={(e)=>setInput(e.target.value)} value={input} row={4} type='text' placeholder='Describe what you want to see in the image' className='w-full mt-2 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500' required />
-            <p className='mt-4 text-sm font-medium'>Category</p>
-            <div className='mt-3 flex gap-3 flex-wrap sm:max-w-9/11'>
-              {imageStyle.map((item)=>(
-                <span onClick={()=> setSelectedStyle(item)} className={`text-xs px-4 py-1 border rounded-full cursor-pointer ${selectedStyle === item ? 'bg-purple-50 text-purple-700' : 'text-gray-500 border-gray-300'}`} key={item}>{item}</span>
-              ) 
+          </div>
+
+          {/* Right Panel - Generated Image */}
+          <div className='flex-1'>
+            <div className='bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20 shadow-2xl h-full min-h-[600px]'>
+              <div className='flex items-center mb-8'>
+                <div className='p-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl mr-4'>
+                  <Image className='w-6 h-6 text-white' />
+                </div>
+                <h2 className='text-2xl font-bold text-white'>Generated Masterpiece</h2>
+              </div>
+
+              {!content ? (
+                <div className='flex flex-col items-center justify-center h-96 text-center'>
+                  <div className='p-6 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full mb-6'>
+                    <Hash className='w-16 h-16 text-purple-300' />
+                  </div>
+                  <p className='text-gray-300 text-lg mb-2'>Ready to create something amazing?</p>
+                  <p className='text-gray-400'>Enter your description and watch the magic happen</p>
+                </div>
+              ) : (
+                <div className='relative group'>
+                  <img
+                    src={content}
+                    alt="Generated artwork"
+                    className='w-full h-96 object-cover rounded-2xl shadow-2xl'
+                  />
+                  <div className='absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-2xl flex items-center justify-center'>
+                    <div className='flex gap-4'>
+                      <button className='p-3 bg-white/20 backdrop-blur-sm rounded-xl hover:bg-white/30 transition-all'>
+                        <Download className='w-6 h-6 text-white' />
+                      </button>
+                      <button className='p-3 bg-white/20 backdrop-blur-sm rounded-xl hover:bg-white/30 transition-all'>
+                        <Share2 className='w-6 h-6 text-white' />
+                      </button>
+                    </div>
+                  </div>
+                </div>
               )}
             </div>
-
-          <div className='my-6 flex items-center gap-2'>
-            <label className='relative cursor-pointer'>
-            <input type="checkbox" onChange={(e)=>setPublish(e.target.checked)} checked={publish} className='=sr-only peer'/>
-
-              <span className='absolute left-1 top-1 w-3 h-3 bg-white rounded-full transition peer-checked:translate-x-4'></span>
-
-
-            </label>
-            <p className='text-sm'>Make this image Public</p>
           </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-
-    
-            <button disabled={loading} className='mt-4 w-full bg-blue-600 text-white py-2 px-4 rounded-md bg-gradient-to-r from-[#C341F6] to-[#8E37EB] flex items-center justify-center gap-2 cursor-pointer'>
-              {loading ? <span className='w-4 h-4 my-1 rounded-full border-2 border-t-transparent animate-spin'></span>
-              :<Image className='w-5 '/>}
-              
-              Generate Image
-            </button>
-    
-           </form>
-           {/*for right cloumn*/}
-           <div className='w-full max-w-lg p-4 bg-white rounded-lg flex flex-col border border-gray-200 min-h-96 '>
-            <div className='flex items-center gap-3'>
-              <Image className='w-5 h-5 text-[#00AD25]'/>
-              <h1 className='text-xl font-semibold'>Generated Image</h1>
-    
-            </div>
-
-            {!content ? (
-              <div className='flex-1 flex justify-center items-center'>
-                        <div className='text-sm flex flex-col items-center gap-5 text-gray-400'>
-                           <Hash className='w-9 h-9'/>
-                           <p>Enter a topic and click "Generate title" to get started</p>
-                        </div>
-              
-                      </div>
-            ) : (
-              <div className='mt-3 h-full'>
-                <img src={content} alt="image" className='w-full h-full' />
-                </div>
-            )}
-            
-    
-           </div>
-          </div>
-  )
-}
-
-export default GenerateImages
+export default GenerateImages;
