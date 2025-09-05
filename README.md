@@ -61,12 +61,73 @@ Built with **React + Vite (frontend)** and **Express.js (backend)**, deployed se
 1️⃣ **Sign In / Sign Up** → Log in with Google, GitHub, or Email.  
 2️⃣ **Choose a Tool** → Select from Article Writer, Blog Titles, AI Images, Background Removal, Object Removal, or Resume Reviewer.  
 3️⃣ **Generate Results** → Upload input or enter text prompts.  
-4️⃣ **Save / Download** → Copy text, download images, or save resume feedback.  
+
 
 💡 *Example:*  
 - Upload an image → Click **Remove Background** → Get a clean transparent PNG.  
 - Enter a topic → Use **Article Writer** → Get a full AI-generated blog post.  
 
+## 📂 Project Structure
+
+AI-Vine/
+│── client/ # React + Vite frontend
+│── server/ # Express.js backend
+│── public/ # Static assets
+│── .env # Environment variables
+│── package.json # Dependencies
+│── README.md # Project documentation
+
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18+  
+- npm / yarn / pnpm  
+
+### Installation
+
+```bash
+# Clone the repo
+git clone https://github.com/your-username/ai-vine.git
+
+# Navigate to frontend
+cd client
+npm install
+npm run dev
+
+# Navigate to backend
+cd server
+npm install
+npm start
+
+👨‍💻 Author
+
+Srinjan Tambuli
+
+    Portfolio: Your Website
+
+LinkedIn: Your LinkedIn
+
+GitHub: Srinjan25
+⭐ Contribute
+
+Contributions are welcome!
+
+    Fork the repo
+
+    Create a feature branch (git checkout -b feature-name)
+
+    Commit changes (git commit -m "Added feature")
+
+    Push (git push origin feature-name)
+
+    Open a Pull Request
+
+📜 License
+
+This project is licensed under the MIT License.
 ---
 
 ## 📂 Project Structure
