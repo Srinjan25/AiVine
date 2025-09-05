@@ -101,14 +101,12 @@ npm run dev
 cd server
 npm install
 npm start
-
+```
 👨‍💻 Author
 
 Srinjan Tambuli
 
-    Portfolio: Your Website
-
-LinkedIn: Your LinkedIn
+LinkedIn: https://www.linkedin.com/in/srinjan-tambuli-1a1997224/
 
 GitHub: Srinjan25
 ⭐ Contribute
@@ -125,10 +123,8 @@ Contributions are welcome!
 
     Open a Pull Request
 
-📜 License
 
 This project is licensed under the MIT License.
 ---
 
-## 📂 Project Structure
 
