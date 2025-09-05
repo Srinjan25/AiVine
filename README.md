@@ -1,62 +1,73 @@
-🍇 AI Vine – AI-Powered Web App
+# 🍇 AI Vine – AI-Powered Web App
 
-A full-stack AI-powered application with authentication, image processing, and user management. Built with React + Vite on the frontend and Express.js on the backend, deployed seamlessly on Vercel.
+A **full-stack AI-powered application** offering content generation, image editing, and career tools — all in one place.  
+Built with **React + Vite (frontend)** and **Express.js (backend)**, deployed seamlessly on **Vercel**, and integrated with **Clerk authentication** + **Cloudinary storage**.
 
-✨ Features
-🤖 AI-Powered Tools
+🔗 **Live Demo:** [AI Vine Client](https://ai-vine-client.vercel.app/)
 
-Background Removal: Instantly remove image backgrounds with AI.
+---
 
-Image Processing: Transform and manage media with Cloudinary.
+## ✨ Features
 
-💼 Core Functionality
+### 🤖 AI-Powered Tools
+- **AI Article Writer** – Generate high-quality, engaging articles.  
+- **Blog Title Generator** – Find catchy, SEO-friendly titles for blogs.  
+- **AI Image Generation** – Create stunning visuals with AI.  
+- **Background Removal** – Instantly remove backgrounds from images.  
+- **Object Removal** – Remove unwanted objects seamlessly.  
+- **Resume Reviewer** – Get AI-powered feedback to improve your resume.  
 
-User Authentication: Sign up / Sign in via Clerk (Google, GitHub, Email, etc.).
+---
 
-Protected Routes: Secure endpoints with Clerk middleware.
+## 🎨 Modern UI/UX
+- Responsive layout for all screen sizes 📱💻  
+- Clean and minimal design 🎯  
+- Smooth animations and transitions ✨  
+- Intuitive navigation with sidebar menu 📂  
 
-User Management: View and manage user data securely.
-
-🎨 Modern UI/UX
-
-React + Vite: Lightning-fast frontend with modern design.
-
-Responsive Layout: Optimized for all screen sizes.
-
-Smooth Experience: Clean interface with seamless interactions.
+---
 
 ## 🛠️ Tech Stack
 
-### Frontend
+### 🖥️ Frontend
+- ⚡ [React + Vite](https://vitejs.dev/) – Blazing-fast UI  
+- 🎨 [Tailwind CSS](https://tailwindcss.com/) – Modern styling  
+- 🔑 [Clerk](https://clerk.com/) – Authentication & User Management  
+- 📡 Axios – API integration  
 
-- **[React 19](https://react.dev)** - Latest React with concurrent features
-- **[Tailwind CSS](https://tailwindcss.com)** - Utility-first CSS framework
+### ⚙️ Backend
+- 🚀 [Node.js](https://nodejs.org/) + [Express.js](https://expressjs.com/) – REST APIs  
+- ☁️ [Cloudinary](https://cloudinary.com/) – Media storage & processing  
+- 🔒 Clerk Middleware – Secure API access  
 
-### Backend & Database
+### 🧠 AI & Database
+- 🤖 [OpenRouter](https://openrouter.ai/) – AI model integration  
+- 📊 [Neon](https://neon.tech/) – Serverless PostgreSQL database  
 
-- **[Neon](https://get.neon.com/0pFcBSF)** - Serverless PostgreSQL database
-- **[Express.js](https://expressjs.com)** - Node.js framework for backend APIs
-- **[Cloudinary](https://cloudinary.com)** - Media storage, optimization, and delivery
+### 🌍 Deployment
+- ▲ [Vercel](https://vercel.com/) – Serverless deployment platform  
 
-### AI & Authentication
+---
 
-- **[OpenRouter](https://openrouter.ai)** - Free AI API access without credit cards
-- **[Clerk](https://go.clerk.com/WSe7K8F)** - Complete authentication solution
-- **OpenAI Compatible API** - For intelligent expense categorization
+## 🔐 Security
+- ✅ JWT-based Authentication with Clerk  
+- ✅ CORS-enabled APIs for safe communication  
+- ✅ Environment variables for secrets & API keys  
 
-### Deployment
+---
 
-- **[Vercel](https://vercel.com)** - Serverless deployment platform
+## 📖 User Guide
 
+1️⃣ **Sign In / Sign Up** → Log in with Google, GitHub, or Email.  
+2️⃣ **Choose a Tool** → Select from Article Writer, Blog Titles, AI Images, Background Removal, Object Removal, or Resume Reviewer.  
+3️⃣ **Generate Results** → Upload input or enter text prompts.  
+4️⃣ **Save / Download** → Copy text, download images, or save resume feedback.  
 
-🔐 Security & Sessions
+💡 *Example:*  
+- Upload an image → Click **Remove Background** → Get a clean transparent PNG.  
+- Enter a topic → Use **Article Writer** → Get a full AI-generated blog post.  
 
-JWT-based Authentication with Clerk.
+---
 
-CORS-enabled APIs for safe communication.
+## 📂 Project Structure
 
-Environment-driven Configuration for scalable deployments.
-
-🌐 Live Demo
-
-🔗 Frontend (Client): https://ai-vine-client.vercel.app/
